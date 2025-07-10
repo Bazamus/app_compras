@@ -9,8 +9,7 @@
       "src": "smartshop-frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "buildCommand": "cd smartshop-frontend && npm install && npm run build"
+        "distDir": "dist"
       }
     }
   ],

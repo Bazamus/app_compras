@@ -2,6 +2,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.19"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd smartshop-frontend && npm install && npm run build"
+  },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0"
