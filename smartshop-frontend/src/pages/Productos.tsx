@@ -208,12 +208,12 @@ const Productos: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
                 <label htmlFor="category" className="block text-base font-medium text-gray-700 mb-1">Categoría</label>
-                <Listbox value={selectedCategory as unknown as never} onChange={(v) => { setSelectedCategory(v as string); setSelectedSubcategory(''); }}>
+                <Listbox value={selectedCategory as unknown as never} onChange={(v: string) => { setSelectedCategory(v); setSelectedSubcategory(''); }}>
                   <div className="relative">
                     {/* Botón normal */}
                     <ListboxButton
                       className="w-full rounded-lg border px-4 py-3 text-left bg-white shadow focus:outline-none focus:ring-2 focus:ring-primary flex items-center justify-between"
-                      onClick={isMobile ? (e => { e.preventDefault(); setIsCategoryModalOpen(true); }) : undefined}
+                      onClick={isMobile ? (e: React.MouseEvent) => { e.preventDefault(); setIsCategoryModalOpen(true); } : undefined}
                     >
                       <span>{selectedCategory ? ((categories || []).find(cat => String(cat.id) === selectedCategory)?.nombre) : 'Todas las categorías'}</span>
                       <ChevronUpDownIcon className="w-5 h-5 text-gray-400 ml-2" />
@@ -256,12 +256,12 @@ const Productos: React.FC = () => {
               </div>
               <div>
                 <label htmlFor="subcategory" className="block text-base font-medium text-gray-700 mb-1">Subcategoría</label>
-                <Listbox value={selectedSubcategory as unknown as never} onChange={(v) => setSelectedSubcategory(v as string)} disabled={!selectedCategory || loadingSubcategories}>
+                <Listbox value={selectedSubcategory as unknown as never} onChange={(v: string) => setSelectedSubcategory(v)} disabled={!selectedCategory || loadingSubcategories}>
                   <div className="relative">
                     <ListboxButton
                       className="w-full rounded-lg border px-4 py-3 text-left bg-white shadow focus:outline-none focus:ring-2 focus:ring-primary flex items-center justify-between disabled:bg-gray-100 disabled:text-gray-400"
                       disabled={!selectedCategory || loadingSubcategories}
-                      onClick={isMobile ? (e => { e.preventDefault(); setIsSubcategoryModalOpen(true); }) : undefined}
+                      onClick={isMobile ? (e: React.MouseEvent) => { e.preventDefault(); setIsSubcategoryModalOpen(true); } : undefined}
                     >
                       <span>{selectedSubcategory ? (subcategories?.find(sub => String(sub.id) === selectedSubcategory)?.nombre) : (loadingSubcategories ? 'Cargando...' : 'Todas las subcategorías')}</span>
                       <ChevronUpDownIcon className="w-5 h-5 text-gray-400 ml-2" />
