@@ -14,9 +14,13 @@
 - **Síntoma:** `TS7016: Could not find declaration file for module 'react/jsx-runtime'`
 - **Causa:** Dependencias @types/react faltantes + caché corrupto de Vercel
 
-### **Error Final:** Schema Validation Failed
+### **Error Schema:** Functions Validation Failed
 - **Síntoma:** `functions.api/index.js should be object`
 - **Causa:** Sintaxis incorrecta en functions (string en lugar de objeto)
+
+### **Error Runtime:** Function Runtimes Invalid
+- **Síntoma:** `Function Runtimes must have a valid version`
+- **Causa:** Runtime version incorrecto para Vercel functions
 
 ---
 
@@ -54,11 +58,12 @@
 {
   "buildCommand": "cd backend && npm ci --no-cache && npm run build && cd ../smartshop-frontend && npm ci --no-cache && npm run build",
   "outputDirectory": "smartshop-frontend/dist",
-  "functions": {
-    "api/index.js": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -74,7 +79,8 @@
 
 **🔑 Aspectos Clave:**
 - **`npm ci --no-cache`**: Fuerza instalación limpia sin caché
-- **Functions objeto**: `{ "runtime": "nodejs18.x" }` no string
+- **Builds en lugar de functions**: Más estable y sin problemas de runtime
+- **@vercel/node simple**: Sin versiones específicas que causen conflictos
 - **Dual build**: Backend (TypeScript → dist/) + Frontend (React → dist/)
 - **API routing**: `/api/*` → Serverless functions
 - **SPA routing**: Todo lo demás → `index.html`
@@ -136,6 +142,8 @@ VITE_SUPABASE_ANON_KEY=tu_anon_key
 1. **`b04bd63`** - Añadidas dependencias @types/react y @types/react-dom
 2. **`b463e28`** - CRITICAL FIX: Forzar instalación limpia sin caché
 3. **`5cbc6ee`** - HOTFIX: Corregir functions schema en vercel.json
+4. **`c332784`** - HOTFIX: Corregir runtime version para Vercel
+5. **`2513ce7`** - FINAL FIX: Cambiar de functions a builds
 
 ---
 
@@ -189,7 +197,8 @@ npx serve dist
 - ✅ Monorepo correctamente estructurado
 - ✅ Dependencies de TypeScript completas
 - ✅ Build process optimizado sin caché
-- ✅ Functions schema corregido
+- ✅ Builds configuration estabilizada
+- ✅ Runtime errors resueltos
 - ✅ Routing configurado para SPA + API
 - ✅ Variables de entorno documentadas
 
