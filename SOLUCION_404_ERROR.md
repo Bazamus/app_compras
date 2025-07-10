@@ -15,6 +15,12 @@ El error 404 indica que Vercel no puede encontrar el archivo `index.html` del fr
 2. Los archivos estáticos no se están sirviendo desde el directorio correcto
 3. El build del frontend no se está ejecutando correctamente
 
+## ⚠️ Error Adicional Encontrado: Function Runtimes
+```
+Error: Function Runtimes must have a valid version, for example `now-php@1.0.0`.
+```
+**Causa:** Configuración incorrecta de `functions` con runtime inválido.
+
 ## ✅ Solución Implementada
 
 ### **Configuración Anterior (Problemática):**
@@ -34,17 +40,29 @@ El error 404 indica que Vercel no puede encontrar el archivo `index.html` del fr
 ```
 **Problema:** Vercel buscaba `/index.html` en la raíz pero los archivos estaban en `/smartshop-frontend/dist/`
 
-### **Configuración Nueva (Solucionada):**
+### **Configuración Intermedia (Error Runtime):**
+```json
+{
+  "functions": {
+    "api/index.js": {
+      "runtime": "nodejs18.x"  ← Error: formato incorrecto
+    }
+  }
+}
+```
+
+### **Configuración Final (Funcionando):**
 ```json
 {
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "smartshop-frontend/dist",
-  "functions": {
-    "api/index.js": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -64,8 +82,8 @@ El error 404 indica que Vercel no puede encontrar el archivo `index.html` del fr
 ### **Cambios Clave:**
 1. ✅ **`buildCommand`**: Especifica exactamente cómo construir el proyecto
 2. ✅ **`outputDirectory`**: Le dice a Vercel dónde encontrar los archivos estáticos
-3. ✅ **`functions`**: Configuración específica para las Serverless Functions
-4. ✅ **Simplificación**: Eliminado el array `builds` complejo
+3. ✅ **`builds`**: Configuración correcta para las Serverless Functions usando `@vercel/node`
+4. ✅ **Eliminado `functions`**: Evita el error de runtime inválido
 
 ### **Script Vercel añadido:**
 ```json
@@ -102,9 +120,10 @@ NODE_ENV=production
 
 ### **Señales de Éxito:**
 1. ✅ **URL principal carga sin error 404**
-2. ✅ **Aparece el header "App Compras"**
-3. ✅ **Las rutas `/productos`, `/historial` funcionan**
-4. ✅ **Los endpoints `/api/ping`, `/api/categories` responden**
+2. ✅ **Build logs sin errores de Function Runtimes**
+3. ✅ **Aparece el header "App Compras"**
+4. ✅ **Las rutas `/productos`, `/historial` funcionan**
+5. ✅ **Los endpoints `/api/ping`, `/api/categories` responden**
 
 ### **DevTools Console debe mostrar:**
 ```
@@ -144,4 +163,9 @@ Buscar errores en el proceso de build.
 └── vite.svg               ← Favicon
 ```
 
-**¡Con esta configuración simplificada el error 404 debería estar resuelto!** 🎉 
+## 📝 Historial de Errores Resueltos
+
+1. ✅ **404 NOT_FOUND** - Corregido routing a `/index.html`
+2. ✅ **Function Runtimes error** - Eliminado `functions` inválido, usado `builds` con `@vercel/node`
+
+**¡Con esta configuración híbrida el proyecto debería desplegarse correctamente!** 🎉 
