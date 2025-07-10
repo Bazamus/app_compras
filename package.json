@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/cors": "^2.8.19"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.4",
+    "@heroicons/react": "^2.2.0"
+  }
+}

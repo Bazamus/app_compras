@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tailwind</title>
+    <style>
+        /* Esto simula las clases de Tailwind para verificar si es un problema de CSS */
+        .test-bg-red {
+            background-color: #ef4444; /* bg-red-500 */
+        }
+        .test-text-white {
+            color: white;
+        }
+        .test-padding {
+            padding: 1rem; /* p-4 */
+        }
+        .test-margin {
+            margin-top: 2rem; /* mt-8 */
+        }
+        .test-rounded {
+            border-radius: 0.375rem; /* rounded-md */
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+        <h1>Test de Tailwind</h1>
+        
+        <!-- Clases de Tailwind -->
+        <div class="bg-red-500 text-white p-4 mt-8 rounded-md">
+            <p>Este debería tener fondo rojo (Tailwind)</p>
+        </div>
+
+        <!-- Clases de prueba manuales -->
+        <div class="test-bg-red test-text-white test-padding test-margin test-rounded" style="margin-top: 20px;">
+            <p>Este debería tener fondo rojo (CSS manual)</p>
+        </div>
+
+        <!-- Estilos directos -->
+        <div style="background-color: #ef4444; color: white; padding: 16px; margin-top: 32px; border-radius: 6px;">
+            <p>Este debería tener fondo rojo (Estilos inline)</p>
+        </div>
+    </div>
+</body>
+</html>

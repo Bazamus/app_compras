@@ -1,0 +1,46 @@
+ Antes de seguir con nuevas mejoras, vamos a optimizar el diseño de la aplicación para su uso en dispositivos móviles, como comentamos anteriormente hemos habilitado un checklist para el uso de la lista desde un dispositivo móvil pero no está optimizado (ver imágenes). Analiza el diseño de todas las paginas que hemos creado hasta ahora y adáptalas a un diseño responsive, priorizando la usabilidad en dispositivo móvil sobre todo en las paginas de "Explorar", "Resultados" y la mas importante la vista de los productos de una lista con el check activo. Prioriza el UX de estas pantallas para su uso en dispositivos móviles. Procura que esta optimización no rompa el diseño en Desktop que ahora es correcto.
+
+Voy a proponerte y aplicar una optimización responsive y de UX para las páginas principales, priorizando móvil pero sin romper el diseño de escritorio.
+📝 Puntos clave de optimización responsive y UX móvil
+1. Página de productos de una lista (checklist)
+Botones grandes y separados para +/– y eliminar.
+Checkbox grande y fácil de pulsar.
+Tabla/estructura tipo “cards” en móvil, no tabla horizontal.
+Texto y botones adaptados a una sola columna.
+Fijar la barra de total y acciones al fondo en móvil.
+2. Página “Explorar”
+Filtros y categorías en columna, con scroll fácil.
+Tarjetas de producto apiladas, botones grandes y legibles.
+Barra flotante de selección siempre visible y accesible.
+3. Página “Resultados”
+Listas guardadas como cards apiladas, botones grandes y bien separados.
+Acciones (ver, detalles, renombrar, eliminar) en fila o columna según ancho.
+4. General
+Espaciados generosos.
+Tamaño de fuente y botones aumentados en móvil.
+Evitar scroll horizontal.
+Inputs y modales adaptados a pantalla pequeña.
+
+Plan de acción
+Añadir clases Tailwind responsive (sm:, md:, lg:, flex-col, w-full, gap-4, etc.) y media queries donde sea necesario.
+Refactorizar la tabla de productos de la lista para que en móvil se vea como cards o filas apiladas.
+Adaptar la barra de acciones y el checklist para que sean cómodos de usar con el pulgar.
+Revisar y adaptar los botones y cards de “Resultados” y “Explorar”.
+
+Plan de optimización responsive y UX móvil
+1. Página de lista (Lista.tsx)
+En móvil, los productos se mostrarán como “cards” apiladas, no como tabla.
+Los botones (+, –, eliminar, checkbox) serán grandes y fáciles de pulsar.
+El total y las acciones estarán fijos al fondo en móvil.
+Checklist: checkbox grande y fácil de marcar.
+Espaciados y fuentes adaptados a móvil.
+2. Página de explorar productos (Productos.tsx)
+Filtros y categorías en columna, con scroll fácil.
+Tarjetas de producto apiladas en móvil, grid en desktop.
+Botones grandes y legibles.
+Barra flotante de selección siempre visible y accesible en móvil.
+3. Página de resultados (Resultados.tsx)
+Listas guardadas como cards apiladas, botones grandes y bien separados.
+Acciones en columna en móvil, en fila en desktop.
+Espaciados y fuentes adaptados a móvil.
+

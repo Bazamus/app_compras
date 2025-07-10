@@ -1,0 +1,28 @@
+Ten en cuenta estas novedades:
+
+Se ha añadido un archivo que vamos a usar para realizar la generación del script para crear la base de datos en supabase, creación de columnas e importación de artículos.
+Es importante que conozcas la estructura del archivo y entiendas el significado de cada columna para establecer una correcta relación entre ellas:
+categoria_principal_articulo: Categoria principal a la que pertenece el articulo
+
+subcategoria_articulo: Subacategorias dentro de la categoría principal de los artículos
+
+nombre_articulo: Nombre del Articulo
+
+id_articulo: Identificador único de cada articulo, este identificador es importante ya que mas adelante crearemos un script de importación y actualización de la base de datos de artículos que tomara como referencia de búsqueda el id del articulo, tenlo en cuenta.
+
+formato_venta_articulo: Formato en el cual se vende y por tanto vamos a comprar el articulo (Garrafa, Botella, Bote, etc)
+
+precio_articulo_por_formato_venta_articulo: precio al cual vamos a comprar el articulo en base a su formato: (Precio por garrafa, Precio por bote, Precio por paquete, etc) Esta columna tiene que ir en formato moneda €
+
+unidad_medida_articulo: Unidad de medida en el cual se clasifica el articulo (Litro "L", Kilo "Kg", etc)
+
+precio_por_unidad_articulo: Precio de venta por cada unidad medida del articulo, ejemplo: 1 Litro "L" a 3.45€. Esta columna tiene que ir en formato moneda €
+
+cantidad_unidad_medida_articulo: Cantidad de venta de las unidades de medida del articulo ejemplo: 1 Garrafa son 5 litros "L", 1 Botella es un litro "L", 1 Spray son 0,2 Litros "L"
+url_enlace_articulo: Enlace a ficha de articulo en la web de Mercadona
+
+imagen_articulo: Imagen del Articulo
+Ten en cuenta los formatos de venta, las unidades de medida y la cantida por unidad de medida ya que esto es importante a la hora de calcular ingredientes para elaborar las recetas y la lista de la compra.
+
+Los archivos para análisis son - - elije el formato mas adecuado para le proyecto.
+Ten en cuanta la puntuación en los números y el formato , o ; en el archivo CSV, recuerda que estamos en España y aquí los CSV se guardan con ;
