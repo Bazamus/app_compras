@@ -1,12 +1,20 @@
 {
-  "devDependencies": {
-    "@types/cors": "^2.8.19"
-  },
+  "name": "app-compras",
+  "version": "1.0.0",
+  "description": "Smart Shopping Application - Monorepo",
+  "main": "index.js",
   "scripts": {
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd smartshop-frontend && npm run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "dev:backend": "cd backend && npm run dev", 
+    "dev:frontend": "cd smartshop-frontend && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@headlessui/react": "^2.2.4",
-    "@heroicons/react": "^2.2.0"
+  "keywords": ["shopping", "react", "node", "supabase"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.19"
   }
 }

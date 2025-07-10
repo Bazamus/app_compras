@@ -32,6 +32,12 @@ app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/subcategories', subcategoriesRouter);
 
-app.listen(port, () => {
-  console.log(`Servidor backend escuchando en http://localhost:${port}`);
-}); 
+// Para desarrollo local
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Servidor backend escuchando en http://localhost:${port}`);
+  });
+}
+
+// Para Vercel (exportación por defecto)
+export default app; 
