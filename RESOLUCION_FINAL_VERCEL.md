@@ -10,9 +10,13 @@
 - **Síntoma:** Build logs mostraban SUCCESS pero aplicación no funcionaba
 - **Causa:** Conflictos entre builds array y otras configuraciones
 
-### **Error Crítico Final:** Cientos de Errores TypeScript
+### **Error Crítico:** Cientos de Errores TypeScript
 - **Síntoma:** `TS7016: Could not find declaration file for module 'react/jsx-runtime'`
 - **Causa:** Dependencias @types/react faltantes + caché corrupto de Vercel
+
+### **Error Final:** Schema Validation Failed
+- **Síntoma:** `functions.api/index.js should be object`
+- **Causa:** Sintaxis incorrecta en functions (string en lugar de objeto)
 
 ---
 
@@ -51,7 +55,9 @@
   "buildCommand": "cd backend && npm ci --no-cache && npm run build && cd ../smartshop-frontend && npm ci --no-cache && npm run build",
   "outputDirectory": "smartshop-frontend/dist",
   "functions": {
-    "api/index.js": "api/index.js"
+    "api/index.js": {
+      "runtime": "nodejs18.x"
+    }
   },
   "routes": [
     {
@@ -68,6 +74,7 @@
 
 **🔑 Aspectos Clave:**
 - **`npm ci --no-cache`**: Fuerza instalación limpia sin caché
+- **Functions objeto**: `{ "runtime": "nodejs18.x" }` no string
 - **Dual build**: Backend (TypeScript → dist/) + Frontend (React → dist/)
 - **API routing**: `/api/*` → Serverless functions
 - **SPA routing**: Todo lo demás → `index.html`
@@ -128,6 +135,7 @@ VITE_SUPABASE_ANON_KEY=tu_anon_key
 
 1. **`b04bd63`** - Añadidas dependencias @types/react y @types/react-dom
 2. **`b463e28`** - CRITICAL FIX: Forzar instalación limpia sin caché
+3. **`5cbc6ee`** - HOTFIX: Corregir functions schema en vercel.json
 
 ---
 
@@ -181,6 +189,7 @@ npx serve dist
 - ✅ Monorepo correctamente estructurado
 - ✅ Dependencies de TypeScript completas
 - ✅ Build process optimizado sin caché
+- ✅ Functions schema corregido
 - ✅ Routing configurado para SPA + API
 - ✅ Variables de entorno documentadas
 
