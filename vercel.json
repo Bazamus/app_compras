@@ -23,7 +23,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/smartshop-frontend/index.html"
+      "dest": "/index.html"
     }
   ]
 }
