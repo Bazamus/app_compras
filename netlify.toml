@@ -2,7 +2,7 @@
 
 [build]
   # Comando para construir tanto el backend como el frontend
-  command = "npm ci --legacy-peer-deps && cd backend && npm ci --legacy-peer-deps && npm run build && cd ../smartshop-frontend && npm ci --legacy-peer-deps && npm run build"
+  command = "node --version && npm --version && npm ci --legacy-peer-deps && cd backend && npm ci --legacy-peer-deps && npm run build && cd ../smartshop-frontend && npm install --legacy-peer-deps && npm list vite && npx vite build"
   
   # Directorio del frontend que se va a publicar
   publish = "smartshop-frontend/dist"
@@ -13,8 +13,8 @@
 
 # Variables de entorno para el build
 [build.environment]
-  NODE_VERSION = "18"
-  NPM_VERSION = "9"
+  NODE_VERSION = "20"
+  NPM_VERSION = "10"
   NPM_FLAGS = "--legacy-peer-deps"
   # Variables para el frontend
   VITE_API_URL = "/.netlify/functions"
