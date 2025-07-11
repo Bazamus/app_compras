@@ -31,6 +31,12 @@ Estas versiones son estables y completamente compatibles entre sí.
 - Agregado interfaz `AutoTableHookData` para los hooks de jspdf-autotable
 - Corregidos tipos en funciones `didDrawCell` y `didParseCell`
 - Eliminados errores TS7006 (parámetros implícitos con tipo 'any')
+- Agregada interfaz `ImportMetaEnv` e `ImportMeta` para resolver errores con `import.meta.env`
+
+### 6. Corrección de Dependencias para Netlify
+- Agregado TypeScript y @types/node como dependencias de desarrollo en package.json raíz
+- Modificado comando de build para instalar dependencias del directorio raíz primero
+- Agregado comando `netlify:build` para testing del proceso de build
 
 ## Archivos Modificados
 - `smartshop-frontend/package.json`: Versiones de dependencias

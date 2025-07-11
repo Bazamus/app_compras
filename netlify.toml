@@ -2,7 +2,7 @@
 
 [build]
   # Comando para construir tanto el backend como el frontend
-  command = "cd backend && npm install --legacy-peer-deps && npm run build && cd ../smartshop-frontend && npm install --legacy-peer-deps && npm run build"
+  command = "npm install --legacy-peer-deps && cd backend && npm install --legacy-peer-deps && npm run build && cd ../smartshop-frontend && npm install --legacy-peer-deps && npm run build"
   
   # Directorio del frontend que se va a publicar
   publish = "smartshop-frontend/dist"
