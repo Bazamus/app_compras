@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "vite": "^7.0.4",
     "@tanstack/react-query": "^5.81.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.31",
