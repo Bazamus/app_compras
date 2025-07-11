@@ -14,7 +14,10 @@
 # Variables de entorno para el build
 [build.environment]
   NODE_VERSION = "18"
+  NPM_VERSION = "9"
   NPM_FLAGS = "--legacy-peer-deps"
+  # Variables para el frontend
+  VITE_API_URL = "/.netlify/functions"
 
 # Redirección para la API para que apunte a la función serverless principal
 [[redirects]]
