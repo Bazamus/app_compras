@@ -2,6 +2,21 @@ import React, { useEffect, useState } from 'react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
+// Tipos para jspdf-autotable
+interface AutoTableHookData {
+  cell: {
+    section: 'head' | 'body' | 'foot';
+    x: number;
+    y: number;
+    styles: {
+      minCellHeight?: number;
+    };
+  };
+  column: { index: number };
+  row: { index: number };
+  section: 'head' | 'body' | 'foot';
+}
+
 interface Producto {
   id_articulo: string;
   nombre_articulo: string;
@@ -117,7 +132,7 @@ const Lista: React.FC = () => {
       head: [["Foto", "Producto", "Uds", "Precio", "Subtotal"]],
       body: tableData,
       startY: 24,
-      didDrawCell: data => {
+      didDrawCell: (data: AutoTableHookData) => {
         if (data.column.index === 0 && data.cell.section === 'body') {
           const img = images[data.row.index];
           if (img) {
@@ -125,7 +140,7 @@ const Lista: React.FC = () => {
           }
         }
       },
-      didParseCell: data => {
+      didParseCell: (data: AutoTableHookData) => {
         if (data.section === 'body' && data.row.index !== undefined && data.column.index === 0) {
           data.cell.styles.minCellHeight = 16;
         }

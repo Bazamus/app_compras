@@ -43,14 +43,14 @@ const Lista = () => {
         setProductos(prev => {
             const updated = prev
                 .map(p => p.id_articulo === id ? { ...p, cantidad: (p.cantidad || 1) - 1 } : p)
-                .filter(p => p.cantidad > 0);
+                .filter((p) => p.cantidad > 0);
             localStorage.setItem('selectedProducts', JSON.stringify(updated));
             return updated;
         });
     };
     const removeProduct = (id) => {
         setProductos(prev => {
-            const updated = prev.filter(p => p.id_articulo !== id);
+            const updated = prev.filter((p) => p.id_articulo !== id);
             localStorage.setItem('selectedProducts', JSON.stringify(updated));
             return updated;
         });
@@ -93,7 +93,7 @@ const Lista = () => {
             head: [["Foto", "Producto", "Uds", "Precio", "Subtotal"]],
             body: tableData,
             startY: 24,
-            didDrawCell: data => {
+            didDrawCell: (data) => {
                 if (data.column.index === 0 && data.cell.section === 'body') {
                     const img = images[data.row.index];
                     if (img) {
@@ -101,7 +101,7 @@ const Lista = () => {
                     }
                 }
             },
-            didParseCell: data => {
+            didParseCell: (data) => {
                 if (data.section === 'body' && data.row.index !== undefined && data.column.index === 0) {
                     data.cell.styles.minCellHeight = 16;
                 }
