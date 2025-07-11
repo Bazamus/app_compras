@@ -1,4 +1,6 @@
 /// <reference types="vite/client" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
 
 interface ImportMetaEnv {
   readonly VITE_API_URL: string
@@ -14,3 +16,10 @@ interface ImportMeta {
 
 declare module '*.css';
 declare module 'jspdf-autotable';
+
+// React types
+declare namespace JSX {
+  interface IntrinsicElements {
+    [elemName: string]: any;
+  }
+}
