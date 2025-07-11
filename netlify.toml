@@ -1,0 +1,24 @@
+# Configuración para Netlify
+
+[build]
+  # Comando para construir tanto el backend como el frontend
+  command = "cd backend && npm install && npm run build && cd ../smartshop-frontend && npm install && npm run build"
+  
+  # Directorio del frontend que se va a publicar
+  publish = "smartshop-frontend/dist"
+  
+  # Directorio donde Netlify buscará las funciones serverless
+  # Apuntamos directamente al directorio de salida del backend
+  functions = "backend/dist"
+
+# Redirección para la API para que apunte a la función serverless principal
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/index/:splat" # 'index' es el nombre del archivo de entrada (index.js)
+  status = 200
+
+# Redirección para la Single Page Application (SPA) de React
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import productsRouter from './routes/products.routes';
 import categoriesRouter from './routes/categories.routes';
 import subcategoriesRouter from './routes/subcategories.routes';
+import serverless from 'serverless-http';
 
 dotenv.config();
 
@@ -39,5 +40,5 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Para Vercel (exportación por defecto)
-export default app; 
+// Exportar el handler para Netlify
+export const handler = serverless(app);
