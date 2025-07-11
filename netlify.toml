@@ -1,23 +1,14 @@
 # Configuración para Netlify
 
 [build]
-  # Comando para construir tanto el backend como el frontend
-  command = "node --version && npm --version && npm ci --legacy-peer-deps && cd backend && npm ci --legacy-peer-deps && npm run build && cd ../smartshop-frontend && npm install --legacy-peer-deps && npm list vite && npx vite build"
-  
+  # Comando de build simplificado y corregido
+  command = "npm install && npm run build"
+
   # Directorio del frontend que se va a publicar
   publish = "smartshop-frontend/dist"
-  
-  # Directorio donde Netlify buscará las funciones serverless
-  # Apuntamos directamente al directorio de salida del backend
-  functions = "backend/dist"
 
-# Variables de entorno para el build
-[build.environment]
-  NODE_VERSION = "20"
-  NPM_VERSION = "10"
-  NPM_FLAGS = "--legacy-peer-deps"
-  # Variables para el frontend
-  VITE_API_URL = "/.netlify/functions"
+  # Directorio donde Netlify buscará las funciones serverless
+  functions = "backend/dist"
 
 # Redirección para la API para que apunte a la función serverless principal
 [[redirects]]
