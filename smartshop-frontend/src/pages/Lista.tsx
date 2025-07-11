@@ -66,14 +66,14 @@ const Lista: React.FC = () => {
         .map(p =>
           p.id_articulo === id ? { ...p, cantidad: (p.cantidad || 1) - 1 } : p
         )
-        .filter(p => p.cantidad > 0);
+        .filter((p: any) => p.cantidad > 0);
       localStorage.setItem('selectedProducts', JSON.stringify(updated));
       return updated;
     });
   };
   const removeProduct = (id: string) => {
     setProductos(prev => {
-      const updated = prev.filter(p => p.id_articulo !== id);
+      const updated = prev.filter((p: any) => p.id_articulo !== id);
       localStorage.setItem('selectedProducts', JSON.stringify(updated));
       return updated;
     });
@@ -89,7 +89,7 @@ const Lista: React.FC = () => {
     doc.text('Lista de la compra', 14, 18);
     // Guardar imágenes base64 por fila
     const images: string[] = [];
-    const tableData = await Promise.all(productos.map(async (prod) => {
+    const tableData = await Promise.all(productos.map(async (prod: any) => {
       let imgData = '';
       if (prod.imagen_articulo) {
         try {
