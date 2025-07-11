@@ -2,7 +2,7 @@
 
 [build]
   # Comando de build simplificado y corregido
-  command = "npm install && npm run build"
+  command = "npm install && cd backend && npm install && npm run build && cd ../smartshop-frontend && npm install && npm run build"
 
   # Directorio del frontend que se va a publicar
   publish = "smartshop-frontend/dist"

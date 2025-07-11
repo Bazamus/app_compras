@@ -14,7 +14,7 @@
     "netlify:test": "npm ci --legacy-peer-deps && cd backend && npm ci --legacy-peer-deps && npm run build && cd ../smartshop-frontend && npm ci --legacy-peer-deps && npm run build",
     "clean": "npx rimraf node_modules backend/node_modules smartshop-frontend/node_modules backend/dist smartshop-frontend/dist",
     "clean:win": "if exist node_modules rmdir /s /q node_modules & if exist backend\\node_modules rmdir /s /q backend\\node_modules & if exist smartshop-frontend\\node_modules rmdir /s /q smartshop-frontend\\node_modules & if exist backend\\dist rmdir /s /q backend\\dist & if exist smartshop-frontend\\dist rmdir /s /q smartshop-frontend\\dist",
-    "postinstall": "cd backend && npm ci --legacy-peer-deps && cd ../smartshop-frontend && npm ci --legacy-peer-deps",
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["shopping", "react", "node", "supabase"],
