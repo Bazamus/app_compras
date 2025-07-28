@@ -4,8 +4,8 @@
   "outputDirectory": "smartshop-frontend/dist",
   "installCommand": "npm run install:all",
   "functions": {
-    "api/index.js": {
-      "runtime": "nodejs18.x"
+    "api/**/*.js": {
+      "runtime": "nodejs20.x"
     }
   },
   "rewrites": [
