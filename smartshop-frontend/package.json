@@ -12,7 +12,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vite": "^7.0.4",
     "@tanstack/react-query": "^5.81.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.31",
@@ -43,6 +42,6 @@
     "tailwindcss": "^4.1.11",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.34.1",
-    "vite": "^7.0.4"
+    "vite": "^5.4.2"
   }
 }
