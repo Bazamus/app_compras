@@ -40,5 +40,8 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Exportar el handler para Netlify
+// Exportar la aplicación para Vercel
+export default app;
+
+// También exportar el handler para Netlify (compatibilidad)
 export const handler = serverless(app);
