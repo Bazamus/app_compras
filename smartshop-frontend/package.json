@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:tsc": "npx tsc -b && vite build",
-    "vercel-build": "vite build",
+    "build": "npx --no-install vite build",
+    "build:tsc": "npx tsc -b && npx --no-install vite build",
+    "vercel-build": "npx --no-install vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
