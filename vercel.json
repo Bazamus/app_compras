@@ -1,5 +1,24 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/backend/dist/index.js" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "smartshop-frontend/package.json",
+      "use": "@vercel/vite",
+      "config": { "project": "smartshop-frontend" }
+    },
+    {
+      "src": "backend/dist/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/dist/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/smartshop-frontend/$1"
+    }
   ]
 }
