@@ -29,9 +29,9 @@ app.get('/ping', (req, res) => {
   res.json({ message: 'API funcionando correctamente 🚀' });
 });
 
-app.use('/products', productsRouter);
-app.use('/categories', categoriesRouter);
-app.use('/subcategories', subcategoriesRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/categories', categoriesRouter);
+app.use('/api/subcategories', subcategoriesRouter);
 
 // Para desarrollo local
 if (process.env.NODE_ENV !== 'production') {
