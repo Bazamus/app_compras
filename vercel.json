@@ -1,6 +1,11 @@
 {
   "builds": [
     {
+      "src": "smartshop-frontend/package.json",
+      "use": "@vercel/vite",
+      "config": { "distDir": "dist" }
+    },
+    {
       "src": "backend/dist/index.js",
       "use": "@vercel/node"
     }
