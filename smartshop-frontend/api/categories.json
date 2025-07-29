@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Tecnología",
+    "description": "Dispositivos electrónicos y gadgets",
+    "image_url": "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=400"
+  },
+  {
+    "id": 2,
+    "name": "Ropa y Calzado",
+    "description": "Moda y accesorios para vestir",
+    "image_url": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400"
+  },
+  {
+    "id": 3,
+    "name": "Hogar y Jardín",
+    "description": "Artículos para el hogar y jardinería",
+    "image_url": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400"
+  },
+  {
+    "id": 4,
+    "name": "Deportes",
+    "description": "Equipamiento y ropa deportiva",
+    "image_url": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400"
+  }
+]
