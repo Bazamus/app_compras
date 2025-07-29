@@ -7,43 +7,76 @@ import XIcon from '../components/icons/XIcon';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { Dialog, Transition } from '@headlessui/react';
-// Fetchers para la API
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// Fetchers para datos estáticos JSON
 const fetchCategories = async () => {
-    const res = await fetch(`${API_URL}/categories`);
+    const res = await fetch('/data/categories.json');
     if (!res.ok)
         throw new Error('Error al cargar categorías');
     return res.json();
 };
 const fetchSubcategories = async (categoryId) => {
-    const res = await fetch(`${API_URL}/categories/${categoryId}/subcategories`);
-    if (!res.ok)
-        throw new Error('Error al cargar subcategorías');
-    return res.json();
+    // Para datos estáticos, retornamos subcategorías simuladas basadas en la categoría
+    const subcategories = [
+        { id: 1, nombre: 'Smartphones' },
+        { id: 2, nombre: 'Laptops' },
+        { id: 3, nombre: 'Ropa Deportiva' },
+        { id: 4, nombre: 'Calzado' }
+    ];
+    return Promise.resolve(subcategories);
 };
 const fetchProducts = async (subcategoryId) => {
-    const res = await fetch(`${API_URL}/subcategories/${subcategoryId}/products`);
+    // Para datos estáticos, cargamos todos los productos y filtramos por subcategoría
+    const res = await fetch('/data/products.json');
     if (!res.ok)
         throw new Error('Error al cargar productos');
-    return res.json();
+    const allProducts = await res.json();
+    return allProducts.filter((product) => product.subcategory_id == subcategoryId);
 };
 const fetchAllProducts = async () => {
-    const res = await fetch(`${API_URL}/products`);
+    const res = await fetch('/data/products.json');
     if (!res.ok)
         throw new Error('Error al cargar productos');
-    return res.json();
+    const products = await res.json();
+    // Mapear los campos del JSON a la estructura esperada por el frontend
+    return products.map((product) => ({
+        id_articulo: product.id,
+        nombre_articulo: product.name,
+        imagen_articulo: product.image_url,
+        precio_articulo_por_formato_venta_articulo: product.price,
+        cantidad: product.stock
+    }));
 };
 const fetchProductsByCategory = async (categoryId) => {
-    const res = await fetch(`${API_URL}/categories/${categoryId}/products`);
+    const res = await fetch('/data/products.json');
     if (!res.ok)
         throw new Error('Error al cargar productos de la categoría');
-    return res.json();
+    const allProducts = await res.json();
+    const filteredProducts = allProducts.filter((product) => product.category_id == categoryId);
+    // Mapear los campos del JSON a la estructura esperada por el frontend
+    return filteredProducts.map((product) => ({
+        id_articulo: product.id,
+        nombre_articulo: product.name,
+        imagen_articulo: product.image_url,
+        precio_articulo_por_formato_venta_articulo: product.price,
+        cantidad: product.stock
+    }));
 };
 const fetchSearchProducts = async (search) => {
-    const res = await fetch(`${API_URL}/products/search?nombre=${encodeURIComponent(search)}`);
+    const res = await fetch('/data/products.json');
     if (!res.ok)
         throw new Error('Error al buscar productos');
-    return res.json();
+    const allProducts = await res.json();
+    const filteredProducts = allProducts.filter((product) => 
+        product.name.toLowerCase().includes(search.toLowerCase())
+    );
+    // Mapear los campos del JSON a la estructura esperada por el frontend
+    return filteredProducts.map((product) => ({
+        id_articulo: product.id,
+        nombre_articulo: product.name,
+        imagen_articulo: product.image_url,
+        precio_articulo_por_formato_venta_articulo: product.price,
+        cantidad: product.stock
+    }));
 };
 const Productos = () => {
     // Cambia la inicialización y uso de selectedCategory y selectedSubcategory a string (sin null)
