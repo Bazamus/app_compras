@@ -33,6 +33,26 @@ const handler = async (event, context) => {
     };
   }
   
+  // Endpoint de debug para ver qué URL está usando el frontend
+  if (event.path === '/debug' || event.path === '/.netlify/functions/index/debug') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+      },
+      body: JSON.stringify({ 
+        message: 'Debug endpoint funcionando',
+        originalPath: event.path,
+        method: event.httpMethod,
+        headers: event.headers,
+        queryStringParameters: event.queryStringParameters
+      })
+    };
+  }
+  
   // Para todas las demás rutas, usar el handler del backend
   // Modificar el path para que funcione con Express
   const modifiedEvent = {
