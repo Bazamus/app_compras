@@ -1,19 +1,27 @@
-# Configuración para Netlify
+# Configuración optimizada para Netlify
 
 [build]
-  # Comando de build simplificado y corregido
-  command = "npm install && cd backend && npm install && npm run build && cd ../smartshop-frontend && npm install && npm run build"
-
+  # Comando de build optimizado para Netlify
+  command = "npm run netlify:build"
+  
   # Directorio del frontend que se va a publicar
   publish = "smartshop-frontend/dist"
-
+  
   # Directorio donde Netlify buscará las funciones serverless
-  functions = "backend/dist"
+  functions = "backend"
+
+# Configuración de funciones serverless
+[functions]
+  # Usar esbuild para mejor rendimiento
+  node_bundler = "esbuild"
+  
+  # Configurar timeout para funciones
+  included_files = ["backend/dist/**"]
 
 # Redirección para la API para que apunte a la función serverless principal
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/index/:splat" # 'index' es el nombre del archivo de entrada (index.js)
+  to = "/.netlify/functions/netlify-function/:splat"
   status = 200
 
 # Redirección para la Single Page Application (SPA) de React
@@ -47,3 +55,8 @@
   for = "/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Configuración específica para desarrollo
+[context.dev]
+  command = "npm run dev:frontend"
+  publish = "smartshop-frontend/dist"
