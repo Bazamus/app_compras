@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "vite": "^7.0.4",
+    "@vitejs/plugin-react": "^4.3.1",
     "@tanstack/react-query": "^5.81.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.31",
@@ -30,7 +31,6 @@
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^8.35.1",
     "@typescript-eslint/parser": "^8.35.1",
-    "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.30.1",
     "eslint-plugin-import": "^2.32.0",
