@@ -29,38 +29,54 @@ interface Product {
 // Fetchers para la API
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
+// Agregar logging para debug
+console.log('API_URL configurada:', API_URL);
+console.log('VITE_API_URL desde env:', import.meta.env.VITE_API_URL);
+
 const fetchCategories = async (): Promise<Category[]> => {
-  const res = await fetch(`${API_URL}/categories`);
+  const url = `${API_URL}/categories`;
+  console.log('Fetching categories from:', url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar categorías');
   return res.json();
 };
 
 const fetchSubcategories = async (categoryId: string): Promise<Subcategory[]> => {
-  const res = await fetch(`${API_URL}/categories/${categoryId}/subcategories`);
+  const url = `${API_URL}/categories/${categoryId}/subcategories`;
+  console.log('Fetching subcategories from:', url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar subcategorías');
   return res.json();
 };
 
 const fetchProducts = async (subcategoryId: string): Promise<Product[]> => {
-  const res = await fetch(`${API_URL}/subcategories/${subcategoryId}/products`);
+  const url = `${API_URL}/subcategories/${subcategoryId}/products`;
+  console.log('Fetching products from:', url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar productos');
   return res.json();
 };
 
 const fetchAllProducts = async (): Promise<Product[]> => {
-  const res = await fetch(`${API_URL}/products`);
+  const url = `${API_URL}/products`;
+  console.log('Fetching all products from:', url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar productos');
   return res.json();
 };
 
 const fetchProductsByCategory = async (categoryId: string): Promise<Product[]> => {
-  const res = await fetch(`${API_URL}/categories/${categoryId}/products`);
+  const url = `${API_URL}/categories/${categoryId}/products`;
+  console.log('Fetching products by category from:', url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar productos de la categoría');
   return res.json();
 };
 
 const fetchSearchProducts = async (search: string): Promise<Product[]> => {
-  const res = await fetch(`${API_URL}/products/search?nombre=${encodeURIComponent(search)}`);
+  const url = `${API_URL}/products/search?nombre=${encodeURIComponent(search)}`;
+  console.log('Searching products from:', url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Error al buscar productos');
   return res.json();
 };
