@@ -33,6 +33,36 @@ const handler = async (event, context) => {
     };
   }
   
+  // Si es una petición a /products, probar el backend directamente
+  if (event.path === '/products' || event.path === '/.netlify/functions/index/products') {
+    console.log('Probando endpoint de productos...');
+    try {
+      // Crear un evento simulado para el backend
+      const testEvent = {
+        ...event,
+        path: '/products',
+        httpMethod: 'GET'
+      };
+      
+      const result = await backend.handler(testEvent, context);
+      console.log('Resultado del backend:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en endpoint de productos:', error);
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ 
+          error: 'Error interno del servidor',
+          details: error.message
+        })
+      };
+    }
+  }
+  
   // Para otras rutas, usar el handler del backend
   return backend.handler(event, context);
 };
