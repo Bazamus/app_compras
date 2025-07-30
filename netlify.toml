@@ -8,7 +8,7 @@
   publish = "smartshop-frontend/dist"
   
   # Directorio donde Netlify buscará las funciones serverless
-  functions = "backend"
+  functions = "./backend"
 
 # Configuración de funciones serverless
 [functions]
