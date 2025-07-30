@@ -8,7 +8,7 @@
   publish = "smartshop-frontend/dist"
   
   # Directorio donde Netlify buscará las funciones serverless
-  functions = "backend/netlify-function.js"
+  functions = "netlify-functions"
 
 # Configuración de funciones serverless
 [functions]
@@ -24,7 +24,7 @@
 # Redirección para la API para que apunte a la función serverless principal
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/netlify-function/:splat"
+  to = "/.netlify/functions/index/:splat"
   status = 200
 
 # Redirección para la Single Page Application (SPA) de React
