@@ -102,7 +102,8 @@ const Productos: React.FC = () => {
 
   // Agregar alert para verificar que se está cargando la nueva versión
   useEffect(() => {
-    alert('NUEVA VERSIÓN CARGADA - API_URL: ' + API_URL);
+    console.log('🚀 NUEVA VERSIÓN CARGADA - API_URL:', API_URL);
+    alert('🚀 NUEVA VERSIÓN CARGADA - API_URL: ' + API_URL + ' - FECHA: ' + new Date().toLocaleString());
   }, []);
 
   useEffect(() => {
