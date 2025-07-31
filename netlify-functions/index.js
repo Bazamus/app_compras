@@ -53,6 +53,25 @@ const handler = async (event, context) => {
     };
   }
   
+  // Endpoint para verificar variables de entorno del frontend
+  if (event.path === '/env-check' || event.path === '/.netlify/functions/index/env-check') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+      },
+      body: JSON.stringify({ 
+        message: 'Variables de entorno del backend',
+        SUPABASE_URL: process.env.SUPABASE_URL ? 'Configurada' : 'No configurada',
+        NODE_ENV: process.env.NODE_ENV,
+        timestamp: new Date().toISOString()
+      })
+    };
+  }
+  
   // Para todas las demás rutas, usar el handler del backend
   // Modificar el path para que funcione con Express
   const modifiedEvent = {
