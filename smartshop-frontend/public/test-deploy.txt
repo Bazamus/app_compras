@@ -1,6 +1,7 @@
-TEST DEPLOY - FECHA: 2025-01-01 15:30:00
+TEST DEPLOY - FECHA: 2025-01-01 17:45:00
 Este archivo confirma que Netlify está desplegando el frontend correctamente.
 Si puedes ver este archivo, significa que el build del frontend funciona.
 
-TIMESTAMP: 2025-01-01T15:30:00.000Z
-VERSIÓN: 2.0 - Corregido problema de redirecciones 
+TIMESTAMP: 2025-01-01T17:45:00.000Z
+VERSIÓN: 2.5 - Build corregido con backend incluido
+BUILD_FORZADO: true 

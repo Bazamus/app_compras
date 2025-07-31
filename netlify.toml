@@ -10,8 +10,8 @@
   # Directorio donde Netlify buscará las funciones serverless
   functions = "netlify-functions"
   
-  # Forzar rebuild completo
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ."
+  # Forzar rebuild completo - siempre ejecutar
+  ignore = "false"
 
 # Configuración de funciones serverless
 [functions]
