@@ -1,80 +1,81 @@
-# Configuración optimizada para Netlify
+# Configuración optimizada para Netlify - App Compras
 
 [build]
-  # Comando de build simplificado para Netlify
+  # Comando de build optimizado
   command = "npm run netlify:build:simple"
   
-  # Directorio del frontend que se va a publicar
+  # Directorio del frontend compilado
   publish = "smartshop-frontend/dist"
   
-  # Directorio donde Netlify buscará las funciones serverless
+  # Directorio de funciones serverless
   functions = "netlify-functions"
   
-  # Forzar rebuild completo - siempre ejecutar
-  ignore = "false"
+  # Variables de entorno para el build
+  environment = { NODE_ENV = "production", VITE_API_URL = "/.netlify/functions" }
 
 # Configuración de funciones serverless
 [functions]
   # Usar esbuild para mejor rendimiento
   node_bundler = "esbuild"
   
-  # Configurar timeout para funciones
+  # Incluir archivos del backend compilado
   included_files = ["backend/dist/**"]
   
-  # Excluir archivos de configuración
-  external_node_modules = ["eslint", "prettier", "typescript-eslint"]
+  # Configurar timeout (30 segundos)
+  timeout = 30
 
-# Redirección para la API para que apunte a la función serverless principal
+# Redirección principal para la API
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/index/:splat"
   status = 200
+  force = false
 
-# Redirección para la Single Page Application (SPA) de React
-# Excluir archivos estáticos de la redirección SPA
+# Redirección para archivos estáticos (debe ir ANTES de la SPA)
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+  force = false
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {Role = ["admin"]}
-  
-# Redirección específica para archivos estáticos (debe ir ANTES de la redirección SPA)
-[[redirects]]
-  from = "/test-deploy.txt"
-  to = "/test-deploy.txt"
-  status = 200
-  force = true
 
-# Headers de seguridad
+# Headers de seguridad y rendimiento
 [[headers]]
   for = "/*"
   [headers.values]
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://kgoefkwzesmimrwhgxxo.supabase.co /.netlify/functions;"
 
-# Headers de cache para archivos estáticos
+# Headers específicos para las funciones de la API
 [[headers]]
-  for = "/static/*"
+  for = "/.netlify/functions/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, no-cache"
+    Access-Control-Allow-Origin = "https://appcompras.netlify.app"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Credentials = "true"
+    Cache-Control = "no-cache"
 
+# Headers para archivos estáticos (CSS, JS, imágenes)
 [[headers]]
-  for = "/*.js"
+  for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, no-cache"
+    Cache-Control = "public, max-age=31536000, immutable"
 
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=0, no-cache"
-
-# Forzar no cache para el index.html
+# Headers para el HTML principal (sin cache para actualizaciones)
 [[headers]]
   for = "/index.html"
   [headers.values]
-    Cache-Control = "public, max-age=0, no-cache, no-store, must-revalidate"
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
 
 # Configuración específica para desarrollo
 [context.dev]

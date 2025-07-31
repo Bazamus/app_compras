@@ -7,11 +7,11 @@ export default defineConfig({
   base: '/',
   define: {
     // Inyectar variables de entorno específicas
-    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || '/.netlify/functions'),
-    'import.meta.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-    'import.meta.env.MODE': JSON.stringify(process.env.MODE || 'production'),
+    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '/.netlify/functions')),
+    'import.meta.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    'import.meta.env.MODE': JSON.stringify(process.env.MODE || 'development'),
     // Forzar valores específicos para debug
-    'import.meta.env.BUILD_VERSION': JSON.stringify('2.6-FORZADO'),
+    'import.meta.env.BUILD_VERSION': JSON.stringify('LOCAL-DEV'),
     'import.meta.env.BUILD_TIMESTAMP': JSON.stringify(new Date().toISOString())
   },
   server: {

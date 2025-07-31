@@ -6,6 +6,7 @@ import XIcon from '../components/icons/XIcon';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { Dialog, Transition } from '@headlessui/react';
+import { API_CONFIG, buildApiUrl } from '../config';
 
 // --- Tipos de Datos ---
 interface Category {
@@ -26,63 +27,89 @@ interface Product {
   cantidad?: number;
 }
 
-// Fetchers para la API
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// Configuración de la API - Ahora usa la configuración dinámica
+const API_URL = API_CONFIG.BASE_URL;
 
-// Agregar logging para debug
-console.log('API_URL configurada:', API_URL);
-console.log('VITE_API_URL desde env:', import.meta.env.VITE_API_URL);
-console.log('Todas las variables de entorno:', import.meta.env);
-console.log('NODE_ENV:', import.meta.env.NODE_ENV);
-console.log('MODE:', import.meta.env.MODE);
-console.log('BUILD_TIME:', new Date().toISOString());
-console.log('VERSION_DEBUG:', 'VERSIÓN 2.6 - Build forzado');
-console.log('BUILD_VERSION:', import.meta.env.BUILD_VERSION);
-console.log('BUILD_TIMESTAMP:', import.meta.env.BUILD_TIMESTAMP);
+// Logging detallado para debug en producción
+console.log('=== CONFIGURACIÓN NETLIFY - PRODUCTOS ===');
+console.log('🚀 API_URL (dinámico):', API_URL);
+console.log('🔧 API_CONFIG completo:', API_CONFIG);
+console.log('📅 TIMESTAMP:', new Date().toISOString());
+console.log('VERSION_DEBUG:', 'VERSIÓN 2.0.0 - Configuración dinámica');
+console.log('🌐 Variables de entorno:', {
+  VITE_API_URL: import.meta.env.VITE_API_URL,
+  NODE_ENV: import.meta.env.NODE_ENV,
+  MODE: import.meta.env.MODE,
+  PROD: import.meta.env.PROD
+});
+console.log('=== FIN CONFIGURACIÓN ===');
 
 const fetchCategories = async (): Promise<Category[]> => {
-  const url = `${API_URL}/categories`;
-  console.log('Fetching categories from:', url);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Error al cargar categorías');
-  return res.json();
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.CATEGORIES);
+  console.log('📡 Fetching categories from:', url);
+  try {
+    const res = await fetch(url);
+    console.log('📡 Categories response status:', res.status);
+    if (!res.ok) {
+      console.error('❌ Categories error response:', res.status, res.statusText);
+      throw new Error(`Error al cargar categorías: ${res.status} ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log('✅ Categories loaded successfully:', data.length, 'categories');
+    return data;
+  } catch (error) {
+    console.error('❌ Categories fetch error:', error);
+    throw error;
+  }
 };
 
 const fetchSubcategories = async (categoryId: string): Promise<Subcategory[]> => {
-  const url = `${API_URL}/categories/${categoryId}/subcategories`;
-  console.log('Fetching subcategories from:', url);
+  const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.CATEGORIES}/${categoryId}/subcategories`);
+  console.log('📡 Fetching subcategories from:', url);
   const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar subcategorías');
   return res.json();
 };
 
 const fetchProducts = async (subcategoryId: string): Promise<Product[]> => {
-  const url = `${API_URL}/subcategories/${subcategoryId}/products`;
-  console.log('Fetching products from:', url);
+  const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.SUBCATEGORIES}/${subcategoryId}/products`);
+  console.log('📡 Fetching products from:', url);
   const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar productos');
   return res.json();
 };
 
 const fetchAllProducts = async (): Promise<Product[]> => {
-  const url = `${API_URL}/products`;
-  console.log('Fetching all products from:', url);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Error al cargar productos');
-  return res.json();
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS);
+  console.log('📡 Fetching all products from:', url);
+  try {
+    const res = await fetch(url);
+    console.log('📡 Response status:', res.status);
+    console.log('📡 Response headers:', res.headers);
+    if (!res.ok) {
+      console.error('❌ Error response:', res.status, res.statusText);
+      throw new Error(`Error al cargar productos: ${res.status} ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log('✅ Products loaded successfully:', data.length, 'products');
+    return data;
+  } catch (error) {
+    console.error('❌ Fetch error:', error);
+    throw error;
+  }
 };
 
 const fetchProductsByCategory = async (categoryId: string): Promise<Product[]> => {
-  const url = `${API_URL}/categories/${categoryId}/products`;
-  console.log('Fetching products by category from:', url);
+  const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.CATEGORIES}/${categoryId}/products`);
+  console.log('📡 Fetching products by category from:', url);
   const res = await fetch(url);
   if (!res.ok) throw new Error('Error al cargar productos de la categoría');
   return res.json();
 };
 
 const fetchSearchProducts = async (search: string): Promise<Product[]> => {
-  const url = `${API_URL}/products/search?nombre=${encodeURIComponent(search)}`;
-  console.log('Searching products from:', url);
+  const url = buildApiUrl(API_CONFIG.ENDPOINTS.SEARCH, { nombre: search });
+  console.log('🔍 Searching products from:', url);
   const res = await fetch(url);
   if (!res.ok) throw new Error('Error al buscar productos');
   return res.json();
@@ -110,8 +137,8 @@ const Productos: React.FC = () => {
   // Agregar alert para verificar que se está cargando la nueva versión
   useEffect(() => {
     const timestamp = new Date().toISOString();
-    console.log('🚀 NUEVA VERSIÓN CARGADA - API_URL:', API_URL, 'TIMESTAMP:', timestamp);
-    alert('🚀 NUEVA VERSIÓN CARGADA - API_URL: ' + API_URL + '\nFECHA: ' + timestamp + '\n\nSi ves este mensaje, el frontend se actualizó correctamente.\n\nVERSIÓN: 2.6 - Build forzado\nBUILD_VERSION: ' + import.meta.env.BUILD_VERSION);
+    console.log('🚀 CONFIGURACIÓN LOCAL CARGADA - API_URL:', API_URL, 'TIMESTAMP:', timestamp);
+    alert('🚀 CONFIGURACIÓN LOCAL CARGADA\n\nAPI_URL: ' + API_URL + '\nVITE_API_URL: ' + import.meta.env.VITE_API_URL + '\nNODE_ENV: ' + import.meta.env.NODE_ENV + '\nFECHA: ' + timestamp + '\n\nSi ves este mensaje, el frontend se actualizó correctamente.\n\nVERSIÓN: LOCAL - Configuración forzada');
   }, []);
 
   useEffect(() => {
@@ -141,7 +168,23 @@ const Productos: React.FC = () => {
   const { data: subcategories, isLoading: loadingSubcategories, error: errorSubcategories } = useQuery<Subcategory[]>({ queryKey: ['subcategories', selectedCategory], queryFn: () => fetchSubcategories(selectedCategory!), enabled: !!selectedCategory });
   const { data: productsBySubcat, isLoading: loadingProductsBySubcat, error: errorProductsBySubcat } = useQuery<Product[]>({ queryKey: ['products', selectedSubcategory], queryFn: () => fetchProducts(selectedSubcategory!), enabled: !!selectedSubcategory });
   const { data: productsByCategory, isLoading: loadingProductsByCategory, error: errorProductsByCategory } = useQuery<Product[]>({ queryKey: ['productsByCategory', selectedCategory], queryFn: () => fetchProductsByCategory(selectedCategory!), enabled: !!selectedCategory && !selectedSubcategory });
-  const { data: allProducts, isLoading: loadingAllProducts, error: errorAllProducts } = useQuery<Product[]>({ queryKey: ['allProducts'], queryFn: fetchAllProducts, enabled: !search && !selectedCategory && !selectedSubcategory });
+  const { data: allProducts, isLoading: loadingAllProducts, error: errorAllProducts } = useQuery<Product[]>({ 
+    queryKey: ['allProducts'], 
+    queryFn: fetchAllProducts, 
+    enabled: !search && !selectedCategory && !selectedSubcategory,
+    retry: 1,
+    retryDelay: 1000
+  });
+  
+  // Logging para debug cuando cambian los datos
+  React.useEffect(() => {
+    if (errorAllProducts) {
+      console.error('❌ React Query error for allProducts:', errorAllProducts);
+    }
+    if (allProducts) {
+      console.log('✅ React Query success for allProducts:', allProducts.length, 'products');
+    }
+  }, [allProducts, errorAllProducts]);
 
   const unaccent = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
@@ -149,12 +192,12 @@ const Productos: React.FC = () => {
     if (search.trim() !== '') {
       if (globalSearchResults) return globalSearchResults;
       const base = selectedSubcategory ? productsBySubcat : selectedCategory ? productsByCategory : allProducts;
-      return (base || []).filter(p => unaccent(p.nombre_articulo.toLowerCase()).includes(unaccent(search.toLowerCase())));
+      return Array.isArray(base) ? base.filter(p => unaccent(p.nombre_articulo.toLowerCase()).includes(unaccent(search.toLowerCase()))) : [];
     }
-    if (selectedSubcategory) return productsBySubcat;
-    if (selectedCategory) return productsByCategory;
-    return allProducts;
-  })() || [];
+    if (selectedSubcategory) return productsBySubcat || [];
+    if (selectedCategory) return productsByCategory || [];
+    return allProducts || [];
+  })();
 
   const filteredProducts = productsToShow.filter((prod) => {
     const price = prod.precio_articulo_por_formato_venta_articulo || 0;
@@ -336,7 +379,19 @@ const Productos: React.FC = () => {
         </div>
 
         {isLoading && <div className="text-center py-10 text-gray-500">Cargando...</div>}
-        {isError && <div className="text-center py-10 text-red-500">Error al cargar los datos. Por favor, inténtalo de nuevo.</div>}
+        {isError && (
+          <div className="text-center py-10 text-red-500">
+            <div className="mb-4">Error al cargar los datos. Por favor, inténtalo de nuevo.</div>
+            <div className="text-sm text-gray-600">
+              <div>Error AllProducts: {errorAllProducts?.message}</div>
+              <div>Error Categories: {errorCategories?.message}</div>
+              <div>Error Subcategories: {errorSubcategories?.message}</div>
+              <div>Error ProductsByCategory: {errorProductsByCategory?.message}</div>
+              <div>Error ProductsBySubcat: {errorProductsBySubcat?.message}</div>
+              <div>Error GlobalSearch: {errorGlobalSearch}</div>
+            </div>
+          </div>
+        )}
         {!isLoading && !isError && filteredProducts.length === 0 && <div className="text-center py-10 text-gray-500">No se encontraron productos con los filtros aplicados.</div>}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">

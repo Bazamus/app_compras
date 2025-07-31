@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Test API Backend</h1>
+    <button onclick="testAPI()">Probar API</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Probando...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/products');
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <h3>✅ API funcionando correctamente</h3>
+                        <p>Status: ${response.status}</p>
+                        <p>Productos cargados: ${data.length}</p>
+                        <p>Primer producto: ${data[0]?.nombre_articulo || 'N/A'}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h3>❌ Error en la API</h3>
+                        <p>Status: ${response.status}</p>
+                        <p>StatusText: ${response.statusText}</p>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <h3>❌ Error de conexión</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 
