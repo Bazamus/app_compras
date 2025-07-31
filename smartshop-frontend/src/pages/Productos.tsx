@@ -32,6 +32,9 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 // Agregar logging para debug
 console.log('API_URL configurada:', API_URL);
 console.log('VITE_API_URL desde env:', import.meta.env.VITE_API_URL);
+console.log('Todas las variables de entorno:', import.meta.env);
+console.log('NODE_ENV:', import.meta.env.NODE_ENV);
+console.log('MODE:', import.meta.env.MODE);
 
 const fetchCategories = async (): Promise<Category[]> => {
   const url = `${API_URL}/categories`;
@@ -104,7 +107,7 @@ const Productos: React.FC = () => {
   useEffect(() => {
     const timestamp = new Date().toISOString();
     console.log('🚀 NUEVA VERSIÓN CARGADA - API_URL:', API_URL, 'TIMESTAMP:', timestamp);
-    alert('🚀 NUEVA VERSIÓN CARGADA - API_URL: ' + API_URL + '\nFECHA: ' + timestamp + '\n\nSi ves este mensaje, el frontend se actualizó correctamente.');
+    alert('🚀 NUEVA VERSIÓN CARGADA - API_URL: ' + API_URL + '\nFECHA: ' + timestamp + '\n\nSi ves este mensaje, el frontend se actualizó correctamente.\n\nVERSIÓN: 2.1 - FORZANDO ACTUALIZACIÓN');
   }, []);
 
   useEffect(() => {

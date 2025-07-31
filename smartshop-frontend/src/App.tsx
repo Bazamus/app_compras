@@ -8,6 +8,9 @@ import NotFound from './pages/NotFound';
 import Lista from './pages/Lista';
 
 function App() {
+  // Debug para verificar que se está cargando la versión actualizada
+  console.log('🚀 APP CARGADA - VERSIÓN 2.1 - TIMESTAMP:', new Date().toISOString());
+  
   return (
     <Router>
       <Header />
