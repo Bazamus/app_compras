@@ -1,8 +1,8 @@
 # Configuración optimizada para Netlify
 
 [build]
-  # Comando de build optimizado para Netlify
-  command = "npm run netlify:build"
+  # Comando de build simplificado para Netlify
+  command = "npm run netlify:build:simple"
   
   # Directorio del frontend que se va a publicar
   publish = "smartshop-frontend/dist"
