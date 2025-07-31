@@ -26,7 +26,8 @@ export const buildApiUrl = (endpoint: string, params?: Record<string, string>) =
   // Si estamos en producción y usando funciones de Netlify
   if (API_CONFIG.BASE_URL.includes('/.netlify/functions')) {
     // Para funciones de Netlify, necesitamos agregar '/index' antes del endpoint
-    url = `${API_CONFIG.BASE_URL}/index${endpoint}`;
+    // Usar URL absoluta para evitar problemas de CSP
+    url = `https://appcompras.netlify.app/.netlify/functions/index${endpoint}`;
   } else {
     // Para desarrollo local
     url = `${API_CONFIG.BASE_URL}${endpoint}`;
@@ -37,6 +38,7 @@ export const buildApiUrl = (endpoint: string, params?: Record<string, string>) =
     url += `?${searchParams.toString()}`;
   }
   
+  console.log('🔧 Construyendo URL API:', url);
   return url;
 };
 
