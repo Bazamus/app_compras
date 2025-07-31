@@ -9,6 +9,9 @@
   
   # Directorio donde Netlify buscará las funciones serverless
   functions = "netlify-functions"
+  
+  # Forzar rebuild completo
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ."
 
 # Configuración de funciones serverless
 [functions]
@@ -55,17 +58,23 @@
 [[headers]]
   for = "/static/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, no-cache"
 
 [[headers]]
   for = "/*.js"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, no-cache"
 
 [[headers]]
   for = "/*.css"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, no-cache"
+
+# Forzar no cache para el index.html
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, no-cache, no-store, must-revalidate"
 
 # Configuración específica para desarrollo
 [context.dev]
