@@ -20,9 +20,11 @@
   
   # Incluir archivos del backend compilado
   included_files = ["backend/dist/**"]
-  
-  # Configurar timeout (30 segundos)
-  timeout = 30
+
+# Configuración específica de funciones
+[functions."*"]
+  # Timeout de 30 segundos para todas las funciones
+  timeout = "30s"
 
 # Redirección principal para la API
 [[redirects]]
