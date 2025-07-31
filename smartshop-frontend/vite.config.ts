@@ -5,6 +5,14 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/',
+  define: {
+    // Asegurar que las variables de entorno estén disponibles
+    'process.env': process.env,
+    // Inyectar variables de entorno específicas
+    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || '/.netlify/functions'),
+    'import.meta.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    'import.meta.env.MODE': JSON.stringify(process.env.MODE || 'production')
+  },
   server: {
     host: '127.0.0.1',
     port: 5173,

@@ -9,7 +9,7 @@ import Lista from './pages/Lista';
 
 function App() {
   // Debug para verificar que se está cargando la versión actualizada
-  console.log('🚀 APP CARGADA - VERSIÓN 2.1 - TIMESTAMP:', new Date().toISOString());
+  console.log('🚀 APP CARGADA - VERSIÓN 2.2 - Variables de entorno forzadas - TIMESTAMP:', new Date().toISOString());
   
   return (
     <Router>
