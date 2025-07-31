@@ -1,0 +1,21 @@
+API CHECK - NETLIFY DEPLOY
+=========================
+
+Timestamp: 2025-07-31T20:00:00Z
+Version: 2.1.0
+Configuration: API URL absoluta
+
+✅ Frontend: Usando URL absoluta para funciones de Netlify
+✅ Backend: CORS actualizado
+✅ CSP: Corregido para usar URL completa
+✅ Build: Frontend construido con éxito
+
+Este archivo confirma que los últimos cambios han sido desplegados correctamente.
+
+Para verificar el funcionamiento:
+1. Visita https://appcompras.netlify.app/productos
+2. Abre la consola del navegador (F12)
+3. Verifica que no hay errores de CSP
+4. Confirma que los productos se cargan correctamente
+
+Si los productos se muestran, ¡la aplicación está funcionando correctamente!
