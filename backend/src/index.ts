@@ -37,11 +37,17 @@ app.use(cors({
       return callback(null, true);
     }
     
-    return callback(new Error('No permitido por CORS'));
+    // Para debugging en producción, permitir temporalmente todos los orígenes
+    // TODO: Remover en producción final
+    console.log('CORS Request from origin:', origin);
+    return callback(null, true);
+    
+    // return callback(new Error('No permitido por CORS'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range']
 }));
 
 // Conexión a Supabase
