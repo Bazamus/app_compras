@@ -28,10 +28,19 @@
   status = 200
 
 # Redirección para la Single Page Application (SPA) de React
+# Excluir archivos estáticos de la redirección SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  conditions = {Role = ["admin"]}
+  
+# Redirección específica para archivos estáticos (debe ir ANTES de la redirección SPA)
+[[redirects]]
+  from = "/test-deploy.txt"
+  to = "/test-deploy.txt"
+  status = 200
+  force = true
 
 # Headers de seguridad
 [[headers]]
