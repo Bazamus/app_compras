@@ -36,7 +36,9 @@ console.log('Todas las variables de entorno:', import.meta.env);
 console.log('NODE_ENV:', import.meta.env.NODE_ENV);
 console.log('MODE:', import.meta.env.MODE);
 console.log('BUILD_TIME:', new Date().toISOString());
-console.log('VERSION_DEBUG:', 'VERSIÓN 2.2 - Variables de entorno forzadas');
+console.log('VERSION_DEBUG:', 'VERSIÓN 2.6 - Build forzado');
+console.log('BUILD_VERSION:', import.meta.env.BUILD_VERSION);
+console.log('BUILD_TIMESTAMP:', import.meta.env.BUILD_TIMESTAMP);
 
 const fetchCategories = async (): Promise<Category[]> => {
   const url = `${API_URL}/categories`;
@@ -109,7 +111,7 @@ const Productos: React.FC = () => {
   useEffect(() => {
     const timestamp = new Date().toISOString();
     console.log('🚀 NUEVA VERSIÓN CARGADA - API_URL:', API_URL, 'TIMESTAMP:', timestamp);
-    alert('🚀 NUEVA VERSIÓN CARGADA - API_URL: ' + API_URL + '\nFECHA: ' + timestamp + '\n\nSi ves este mensaje, el frontend se actualizó correctamente.\n\nVERSIÓN: 2.2 - Variables de entorno forzadas');
+    alert('🚀 NUEVA VERSIÓN CARGADA - API_URL: ' + API_URL + '\nFECHA: ' + timestamp + '\n\nSi ves este mensaje, el frontend se actualizó correctamente.\n\nVERSIÓN: 2.6 - Build forzado\nBUILD_VERSION: ' + import.meta.env.BUILD_VERSION);
   }, []);
 
   useEffect(() => {
