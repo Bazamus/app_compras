@@ -1,0 +1,69 @@
+🏗️ Evaluación de Arquitecturas
+ARQUITECTURA ACTUAL (MONOREPO)
+❌ CONTRAS:
+Complejidad de Build: Frontend y backend en el mismo repo causan conflictos
+Netlify Functions: Limitaciones de timeout (10s), cold starts, debugging complejo
+Variables de Entorno: Conflictos entre prefijos VITE_ y variables de backend
+Deploy Frágil: Un error en cualquier parte afecta toda la aplicación
+Debugging Complejo: Difícil separar errores de frontend vs backend
+CSP Issues: URLs relativas causan problemas de seguridad persistentes
+✅ PROS:
+Un solo repositorio para mantener
+Compartir tipos TypeScript entre frontend/backend
+Deploy unificado
+PROPUESTA: ARQUITECTURA SEPARADA
+🎯 OPCIÓN 1: SEPARACIÓN COMPLETA
+Frontend: Netlify/Vercel (SPA optimizado)
+Backend: Railway/Render/Digital Ocean (API dedicada)
+🎯 OPCIÓN 2: SUPABASE EDGE FUNCTIONS
+Frontend: Netlify/Vercel
+Backend: Supabase Edge Functions (Deno runtime)
+✅ VENTAJAS ARQUITECTURA SEPARADA:
+🔒 URLs Absolutas: Backend con dominio propio elimina problemas CSP
+🚀 Performance: Cada servicio optimizado para su propósito
+🔧 Debugging: Errores aislados y logs específicos
+📈 Escalabilidad: Cada servicio escala independientemente
+🛡️ Reliability: Fallo en uno no afecta al otro
+⚡ Deploy: Deployments independientes y más rápidos
+📋 PLAN DE MIGRACIÓN PROPUESTO
+FASE 1: BACKEND INDEPENDIENTE (RECOMENDADO)
+Created
+PLAN_MIGRACION_ARQUITECTURA.md
++183
+-0
+ 0
+Open diff
+🎯 RECOMENDACIÓN CRÍTICA
+Basándome en el análisis, recomiendo proceder con la separación de arquitectura por las siguientes razones:
+
+🚨 PROBLEMAS ACTUALES IRRESOLUBLES EN MONOREPO:
+Build Cache Issues: Los cambios no se reflejan consistentemente
+CSP Conflicts: URLs relativas causan problemas de seguridad persistentes
+Netlify Functions Limitations: Cold starts, timeouts, debugging complejo
+Variable Environment Conflicts: Prefijos VITE_ vs backend variables
+✅ SOLUCIÓN PROPUESTA: RAILWAY + NETLIFY
+VENTAJAS INMEDIATAS:
+
+🔒 URL Absoluta: https://app-compras-backend.railway.app/api/products
+⚡ Sin Cold Starts: Backend siempre activo
+🔧 Debugging Claro: Logs separados y específicos
+💰 Costo Menor: $5/mes vs $19/mes actual
+🚀 Deploy Independiente: Frontend y backend por separado
+📊 COMPARACIÓN DE OPCIONES:
+Aspecto	Monorepo Actual	Arquitectura Separada
+Reliability	❌ Frágil	✅ Robusto
+Debugging	❌ Complejo	✅ Simple
+Performance	❌ Cold starts	✅ Siempre activo
+Costo	$19/mes	$5/mes
+Escalabilidad	❌ Limitada	✅ Independiente
+URLs	❌ Relativas	✅ Absolutas
+🚀 PROPUESTA DE ACCIÓN INMEDIATA
+¿Quieres que proceda con la migración? Puedo:
+
+Crear el repositorio backend separado
+Configurar Railway para el backend
+Migrar y desplegar el backend independiente
+Actualizar el frontend para usar la nueva API
+Esto resolvería definitivamente los problemas recurrentes y nos daría una base sólida para el desarrollo futuro.
+
+¿Procedemos con la migración a arquitectura separada?
