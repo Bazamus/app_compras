@@ -1,13 +1,14 @@
 DEPLOY CHECK - NETLIFY CONFIGURATION
 =====================================
 
-Timestamp: 2025-07-31T20:15:00Z
-Version: 2.1.0
+Timestamp: 2025-08-03T19:15:00Z
+Version: 2.2.0
 Configuration: Production Ready
 
 ✅ Frontend: Configuración dinámica implementada
 ✅ Backend: CORS actualizado para Netlify
 ✅ netlify.toml: Optimizado y simplificado
+✅ VITE_API_URL: Corregido para usar URL absoluta
 ✅ Variables de entorno: Configuradas
 ✅ Endpoints de verificación: Implementados
 ✅ Forzar nuevo build: Actualización de timestamp
