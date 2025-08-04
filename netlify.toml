@@ -11,7 +11,7 @@
   functions = "netlify-functions"
   
   # Variables de entorno para el build
-  environment = { NODE_ENV = "production", VITE_API_URL = "/.netlify/functions" }
+  environment = { NODE_ENV = "production" }
 
 # Configuración de funciones serverless
 [functions]
