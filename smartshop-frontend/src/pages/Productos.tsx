@@ -48,7 +48,7 @@ const fetchCategories = async (): Promise<Category[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.CATEGORIES);
   console.log('📡 Fetching categories from:', url);
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { headers: { 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` } });
     console.log('📡 Categories response status:', res.status);
     if (!res.ok) {
       console.error('❌ Categories error response:', res.status, res.statusText);
@@ -66,7 +66,7 @@ const fetchCategories = async (): Promise<Category[]> => {
 const fetchSubcategories = async (categoryId: string): Promise<Subcategory[]> => {
   const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.CATEGORIES}/${categoryId}/subcategories`);
   console.log('📡 Fetching subcategories from:', url);
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: { 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` } });
   if (!res.ok) throw new Error('Error al cargar subcategorías');
   return res.json();
 };
@@ -74,7 +74,7 @@ const fetchSubcategories = async (categoryId: string): Promise<Subcategory[]> =>
 const fetchProducts = async (subcategoryId: string): Promise<Product[]> => {
   const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.SUBCATEGORIES}/${subcategoryId}/products`);
   console.log('📡 Fetching products from:', url);
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: { 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` } });
   if (!res.ok) throw new Error('Error al cargar productos');
   return res.json();
 };
@@ -83,7 +83,7 @@ const fetchAllProducts = async (): Promise<Product[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS);
   console.log('📡 Fetching all products from:', url);
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { headers: { 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` } });
     console.log('📡 Response status:', res.status);
     console.log('📡 Response headers:', res.headers);
     if (!res.ok) {
@@ -102,7 +102,7 @@ const fetchAllProducts = async (): Promise<Product[]> => {
 const fetchProductsByCategory = async (categoryId: string): Promise<Product[]> => {
   const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.CATEGORIES}/${categoryId}/products`);
   console.log('📡 Fetching products by category from:', url);
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: { 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` } });
   if (!res.ok) throw new Error('Error al cargar productos de la categoría');
   return res.json();
 };
@@ -110,7 +110,7 @@ const fetchProductsByCategory = async (categoryId: string): Promise<Product[]> =
 const fetchSearchProducts = async (search: string): Promise<Product[]> => {
   const url = buildApiUrl(API_CONFIG.ENDPOINTS.SEARCH, { nombre: search });
   console.log('🔍 Searching products from:', url);
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: { 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` } });
   if (!res.ok) throw new Error('Error al buscar productos');
   return res.json();
 };
