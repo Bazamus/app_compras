@@ -36,6 +36,7 @@ console.log('🚀 API_URL (dinámico):', API_URL);
 console.log('🔧 API_CONFIG completo:', API_CONFIG);
 console.log('📅 TIMESTAMP:', new Date().toISOString());
 console.log('VERSION_DEBUG:', 'VERSIÓN 2.0.0 - Configuración dinámica');
+console.log('🔑 VITE_SUPABASE_ANON_KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY);
 console.log('🌐 Variables de entorno:', {
   VITE_API_URL: import.meta.env.VITE_API_URL,
   NODE_ENV: import.meta.env.NODE_ENV,
